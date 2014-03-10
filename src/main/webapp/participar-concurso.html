@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+
+<body data-lift-content-id="main">
+
+<div id="main" class="container-fluid" data-lift="surround?with=default;at=body">
+
+    <div class="masthead">
+        <a href="/index_siLog.html"><img src="/img/Logo.jpg" alt="logo" class="logo"></a>
+        <ul class="nav nav-pills pull-right">
+            <li id="fat-menu" class="dropdown">
+                <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Enríque Santillan <b
+                        class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/miPerfil.html">Mi perfil</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/miSaldo.html">Mi saldo</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/misInvitaciones.html">Mis
+                        invitaciones</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/misConcursos.html">Mis concursos</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/index_noLog.html">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="info" data-lift="ContestsSnippet.participar">
+        <div class="row-fluid">
+            <div class="span12">
+                <h4>Estas participando en el concurso #1 para ver gratis: Nombre de la película</h4>
+
+                <p>Sigue estos tres sencillos pasos:</p>
+
+                <p>1.- Elige tu forma de pago.</p>
+
+                <p>2.- Escoge alguno de los boletos (signo de interrogación ?).</p>
+
+                <p>3.- Listo! El número descubierto detrás del signo será la cantidad a pagar.</p>
+            </div>
+        </div>
+        <div class="row-fluid info">
+            <div class="span5">
+                <h6>Forma de pago:</h6>
+                <ol id="selectable">
+                    <li class="ui-widget-content">Tarjeta de crédito</li>
+                    <li class="ui-widget-content">Pay Pal</li>
+                    <li class="ui-widget-content">PadeMobile</li>
+                    <li class="ui-widget-content">Mi saldo</li>
+                </ol>
+                <br>
+                <a class="btn btn-small btn-info">Aceptar</a>
+            </div>
+
+            <div class="span2"></div>
+            <div class="span5">
+                <ol id="selectable2">
+                    <li class="ui-widget-content"><img src="/img/interrogacion.jpg"></li>
+                    <!--<li class="ui-widget-content"><img src="/img/feliz.png"></li>-->
+                </ol>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="footer">
+            <p>&copy; 2013 MovieFree. &middot; <a href="#">Privacidad</a> &middot; <a href="#">Terminos</a></p>
+        </div>
+
+    </div>
+    <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <script src="/bootstrap/js/jquery-1.10.2.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#selectable").selectable();
+            $("#selectable2").selectable();
+        });
+    </script>
+
+</body>
+</html>
