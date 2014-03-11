@@ -3,10 +3,9 @@ package code.snippet
 import net.liftweb.util.Helpers._
 
 import code.model._
-import scala.slick.driver.PostgresDriver.simple._
-import bootstrap.liftweb.Connections
+import scala.slick.driver.MySQLDriver.simple._
 import net.liftweb.http.{RequestVar, SHtml}
-import net.liftweb.common.{Empty, Full, Box}
+import net.liftweb.common.{Empty, Box}
 import scala.xml.Text
 import net.liftweb.common.Full
 
@@ -21,24 +20,9 @@ class MoviesSnippet {
   def moviesMainPage = {
     val movies = TableQuery[Movies]
 
-    ".sec_pel" #>
-      Connections.db.withSession {
-        implicit session =>
-          movies.list() map (
-            movie => {
-              <div class="span3 sec_pel">
-                <div class="textc">
-                  <h2>
-                    {SHtml.link("/pelicula-concurso.html",
-                    () => MovieRequestVar.set(Full(movie)),
-                    Text(movie.name))}
-                  </h2>{SHtml.link("/pelicula-concurso.html",
-                  () => MovieRequestVar.set(Full(movie)),
-                    <img src={movie.posterUrl} alt=" " class="img-rounded"/>)}
-                </div>
-              </div>
-            })
-      }
+    ".column *" #>
+      (Movie.all map (
+        movie => ".header *" #> movie.name & "img [src]" #> movie.posterUrl ))
   }
 
   def movieDetails = {

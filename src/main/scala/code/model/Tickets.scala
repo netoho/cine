@@ -1,6 +1,6 @@
 package code.model
 
-import scala.slick.driver.PostgresDriver.simple._
+import scala.slick.driver.MySQLDriver.simple._
 
 /**
  * Created by netoho on 1/22/14.

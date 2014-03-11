@@ -5,8 +5,7 @@ import code.model._
 import scala.slick.lifted.TableQuery
 import net.liftweb.http.RequestVar
 import net.liftweb.common.{Empty, Box}
-import bootstrap.liftweb.Connections
-import scala.slick.driver.PostgresDriver.simple._
+import scala.slick.driver.MySQLDriver.simple._
 
 
 /**
@@ -20,7 +19,7 @@ class ContestsSnippet {
   def participar = {
     val contest = ContestRequestVar.is.get
     val tickets = TableQuery[Tickets]
-    val ticketsM = Connections.db.withSession {
+    val ticketsM = DataBase.db.withSession {
       implicit session =>
         tickets.filter(_.contestId === contest.id).list()
     }

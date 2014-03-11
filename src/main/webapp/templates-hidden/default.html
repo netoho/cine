@@ -1,36 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <title>MovieFree</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Movie Free</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link rel="shortcut icon" type="image/x-icon" href="./img/logo.ico">
-    <link href='http://fonts.googleapis.com/css?family=Arapey' rel='stylesheet' type='text/css'>
-    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/moviefree.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/logo.ico">
+    <!--<link href='http://fonts.googleapis.com/css?family=Arapey' rel='stylesheet' type='text/css'>-->
+    <link href="/css/semantic.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.address/1.6/jquery.address.js"></script>
+    <script src="/javascript/semantic.js"></script>
+
 </head>
-
 <body>
+<div class="ui column page grid">
 
-<div class="container-fluid" id="body">
-</div> <!-- /container -->
+    <div class="two column middle aligned row">
+        <div class="column">
+            <div class="ui text menu">
+                <a class="item active" href="/">
+                    <img class="ui image small" src="/images/logo.jpg" alt="Movie Free"/>
+                </a>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui secondary tiered menu">
+                <div class="menu right">
+                    <a class="item">
+                        Iniciar Sesión
+                    </a>
+                    <a class="item">
+                        Registrarse
+                    </a>
+                </div>
 
-<!-- Le javascript
-================================================== -->
-<script src="/bootstrap/js/jquery-1.10.2.js"></script>
-<script src="/bootstrap/js/bootstrap.js"></script>
+            </div>
+        </div>
+    </div>
 
+    <div class="ui grid" id="contenido">
+        <div class="one column row center aligned">
+            <div class="column">
+                <div class="segment">
+                    <div class="ui huge icon header">
+                        <i class="circular question icon"></i>
+                        ¿Qué es Movie Free?
+                        <div class="sub header">
+                            <div class="ui large green button">Quiero saber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2013 MovieFree. &middot; <a href="#">Privacidad</a> &middot; <a href="#">Terminos</a></p>
+    </div>
+
+</div>
+<script>
+    window.onload = function () {
+        $('.ui.dropdown').dropdown();
+    }
+</script>
 </body>
 </html>
