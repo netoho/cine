@@ -19,3 +19,19 @@ class Contests(tag: Tag) extends Table[Contest](tag, "CONTESTS") {
   def * = (id.?, status, movieId, number) <> (Contest.tupled, Contest.unapply)
 
 }
+
+object Contest extends((Option[Int], Int, Int, Int) => Contest){
+
+  val movies = TableQuery[Movies]
+  val contests = TableQuery[Contests]
+
+  val db = DataBase.db
+
+  def find(m: Movie): List[Contest] = {
+    db.withSession{
+      implicit session =>
+        contests.filter(_.movieId === m.id).list
+    }
+  }
+
+}

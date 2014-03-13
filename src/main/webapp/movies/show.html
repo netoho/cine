@@ -21,20 +21,52 @@
 </head>
 <body data-lift-content-id="contenido">
 <div id="contenido" data-lift="surround?with=default;at=contenido">
-    <div class="twelve column row" data-lift="MoviesSnippet.movieDetails">
-        <div class="five wide column">
+    <div class="ui grid" data-lift="MoviesSnippet.movieDetails">
+
+        <div class="six wide column">
             <div class="ui basic segment">
-                <img src="/img/thor.jpg" class="ui image large rounded">
-                <h6>Concurso: 1</h6>
-                <a class="btn btn-small btn-info" href="/participar-concurso.html">Participar</a>
-                <a class="btn btn-small btn-info">Invita a un amigo</a>
+                <img id="movie-poster" src="/img/thor.jpg" class="ui image large rounded">
+                <a class="ui fluid teal button">Invita a un amigo</a>
             </div>
         </div>
-        <div class="seven wide column">
+        <div class="ten wide column">
+            <div id="movie-contests" class="ui raised segment">
+                <h4>Actualmente existen 4 concursos para está película</h4>
 
+                <div class="ui grid">
+                    <div class="six column row">
+                        <div class="column movie-contest">
+                            <div class="ui animated fade active mini button">
+                                <div class="visible content"><br/>¡Quedan 10 Boletos!<br/><br/></div>
+                                <div class="hidden content">¡Participa!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui segment">
+                <a href="#" onclick="$('.basic.modal').modal('show');">
+                    <h3 class="fleft">¿Cómo funciona?</h3>&nbsp;&nbsp;&nbsp;
+                    <img src="/images/video.jpg">
+                </a>
+
+                <div class="ui basic modal">
+                    <p>Aquí va el video</p>
+                </div>
+            </div>
+            <div class="ui segment">
+                <h4 id="movie-name">Nombre de la película (sinópsis):</h4>
+
+                <p id="movie-synopsis">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+                    tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+                    malesuada magna mollis euismod. Donec sed odio dui.
+                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+                    tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
+                    malesuada magna mollis euismod. Donec sed odio dui.</p>
+            </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

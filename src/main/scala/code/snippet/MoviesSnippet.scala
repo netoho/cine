@@ -18,41 +18,25 @@ object MovieRequestVar extends RequestVar[Box[Movie]](Empty)
 class MoviesSnippet {
 
   def moviesMainPage = {
-    val movies = TableQuery[Movies]
 
     ".column *" #>
       (Movie.all map (
-        movie => ".header *" #> movie.name & "img [src]" #> movie.posterUrl ))
+        movie => ".header *" #> SHtml.link("/movies/show", () => MovieRequestVar.set(Full(movie)), Text(movie.name)) &
+          "img" #> SHtml.link("/movies/show", () => MovieRequestVar.set(Full(movie)), <img class="ui image large" src={movie.posterUrl}></img>)))
   }
 
   def movieDetails = {
     val movie = MovieRequestVar.is.get
-    val movies = TableQuery[Movies]
-    val contests = TableQuery[Contests]
-    val movieContests = Connections.db.withSession {
-      implicit session =>
-        contests.filter(_.movieId === movie.id).list()
-    }
-    val tickets = TableQuery[Tickets]
+    val movieContests = Contest.find(movie)
 
-    ".contest *" #>
-      movieContests.map(
-        contest =>
-          ".concurso *" #> SHtml.link("/participar-concurso", () => ContestRequestVar.set(Full(contest)),
-            <p>
-              {contest.number}
-            </p> ++
-              <p>Quedan
-                {Connections.db.withSession {
-                implicit session =>
-                  tickets.filter(t => t.contestId === contest.id && t.status === 10).list().length
-              }}
-                boletos</p>)) &
-      ".img-rounded [src]" #> movie.posterUrl &
-      ".nC *" #> ("Actualmente existen " + movieContests.length + " concursos para esta película.") &
-      "#movie_detalis" #> {
-        "h4 *" #> movie.name & "p *" #> movie.sypnosis
-      }
+    "#movie-poster [src]" #> movie.posterUrl &
+      "#movie-name *" #> movie.name &
+      "#movie-synopsis *" #> movie.synopsis &
+    "#movie-contests" #> {
+      "h4 *" #>  s"Actualmente existen ${movieContests.length} concursos para está película" &
+      ".movie-contest *" #> movieContests.map(mc => ".visible *" #> (<br/> ++ Text(s"¡Quedan ${Ticket.find(mc).length} boletos!") ++ <br/> ++ <br/>))1
+    }
+
   }
 
 }

@@ -7,7 +7,7 @@ import scala.slick.driver.MySQLDriver.simple._
  */
 
 
-case class Movie(id: Option[Int], name: String, sypnosis: String, posterUrl: String)
+case class Movie(id: Option[Int], name: String, synopsis: String, posterUrl: String)
 
 class Movies(tag: Tag) extends Table[Movie](tag, "MOVIES") {
 
@@ -25,11 +25,12 @@ class Movies(tag: Tag) extends Table[Movie](tag, "MOVIES") {
 object Movie extends ((Option[Int], String, String, String) => Movie){
 
   val movies = TableQuery[Movies]
+  val db = DataBase.db
 
-  def all = {
-    DataBase.db.withSession{
+  def all: List[Movie] = {
+    db.withSession{
       implicit session =>
-        movies.list()
+        movies.list
     }
   }
 
