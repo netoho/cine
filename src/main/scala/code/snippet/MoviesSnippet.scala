@@ -32,10 +32,21 @@ class MoviesSnippet {
     "#movie-poster [src]" #> movie.posterUrl &
       "#movie-name *" #> movie.name &
       "#movie-synopsis *" #> movie.synopsis &
-    "#movie-contests" #> {
-      "h4 *" #>  s"Actualmente existen ${movieContests.length} concursos para está película" &
-      ".movie-contest *" #> movieContests.map(mc => ".visible *" #> (<br/> ++ Text(s"¡Quedan ${Ticket.find(mc).length} boletos!") ++ <br/> ++ <br/>))1
-    }
+      "#movie-contests" #> {
+        "h4 *" #> s"Actualmente existen ${movieContests.length} concursos para está película" &
+          ".movie-contest *" #> movieContests.map(
+            mc =>
+              "a" #> SHtml.link("/contests/show",
+                () => {
+                  ContestRequestVar.set(Full(mc))
+                  MovieRequestVar.set(Full(movie))
+                },
+                <div class="visible content">
+                  <br/>{s"¡Quedan ${Ticket.find(mc).length} boletos!"}<br/>
+                  <br/>
+                </div>
+                  ++ <div class="hidden content">¡Participa!</div>))
+      }
 
   }
 

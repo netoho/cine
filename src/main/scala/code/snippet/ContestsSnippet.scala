@@ -17,17 +17,18 @@ object ContestRequestVar extends RequestVar[Box[Contest]](Empty)
 class ContestsSnippet {
 
   def participar = {
+    val movie = MovieRequestVar.is.get
     val contest = ContestRequestVar.is.get
-    val tickets = TableQuery[Tickets]
-    val ticketsM = DataBase.db.withSession {
-      implicit session =>
-        tickets.filter(_.contestId === contest.id).list()
-    }
+    val tickets = Ticket.find(contest)
 
-    "#selectable2 *" #> {
-      ".ui-widget-content *" #> ticketsM.map(
-        t => "img [src]" #> (if (t.status == 10) "/img/interrogacion.jpg" else "/img/feliz.png")
+    "#movie-name *" #> movie.name &
+      "#movie-poster [src]" #> movie.posterUrl &
+      "#movie-poster [alt]" #> movie.name &
+      ".ticket *" #> tickets.map(
+        t =>
+          if (t.status == 10)
+            "img [src]" #> "/images/interrogacion.jpg" & "img [alt]" #> "Boleto Disponible"
+          else "img [src]" #> "/images/feliz.png" & "img [alt]" #> "Boleto No Disponible"
       )
-    }
   }
 }
