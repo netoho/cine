@@ -33,14 +33,11 @@
         <div class="column">
             <div class="ui secondary tiered menu">
                 <div class="menu right">
-                    <a class="item">
-                        Iniciar Sesión
-                    </a>
-                    <a class="item">
-                        Registrarse
-                    </a>
+                    <div class="ui pointing dropdown item">
+                        Ernesto Huerta <i class="dropdown icon"></i>
+                        <span data-lift="lift:Menu.builder?li:class=item;ul:class=menu;outer_tag=div;inner_tag=div"></span>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -58,6 +55,7 @@
 <script>
     window.onload = function () {
         $('.ui.dropdown').dropdown();
+        $('.ui.dropdown.pointing').dropdown({ on: 'hover'});
         $('.ui.reveal').dimmer();
         $('.ui.modal').modal();
     }

@@ -38,12 +38,18 @@ class Boot {
     // Build SiteMap
 
     val entries = List(
-      Menu.i("Home") / "index"
+      Menu(Loc("index", "index" :: Nil, "Página de Inicio", Hidden)),
+      Menu(Loc("profile", "profile" :: Nil, "Mi Perfil")),
+      Menu(Loc("balance", "balance" :: Nil, "Mi Saldo")),
+      Menu(Loc("invitations", "invitations" :: Nil, "Mis Invitaciones")),
+      Menu(Loc("contests", ("contests" :: Nil) -> true, "Mis Concursos")),
+      Menu(Loc("movies", ("movies" :: Nil) -> true, "Las Películas", Hidden)),
+      Menu(Loc("logout", "logout" :: Nil, "Salir"))
     ) ::: Omniauth.sitemap
 
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
-    //LiftRules.setSiteMap(SiteMap(entries: _*))
+    LiftRules.setSiteMap(SiteMap(entries: _*))
 
     Omniauth.init
 
