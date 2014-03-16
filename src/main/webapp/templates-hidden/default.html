@@ -20,6 +20,24 @@
 
 </head>
 <body>
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '196869340515530',
+            status     : false,
+            xfbml      : true
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/es_LA/all.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 <div class="ui column page grid">
 
     <div class="two column middle aligned row">
@@ -33,9 +51,11 @@
         <div class="column">
             <div class="ui secondary tiered menu">
                 <div class="menu right">
-                    <div class="ui pointing dropdown item">
-                        Ernesto Huerta <i class="dropdown icon"></i>
-                        <span data-lift="lift:Menu.builder?li:class=item;ul:class=menu;outer_tag=div;inner_tag=div"></span>
+                    <div class="ui pointing dropdown item" data-lift="UsersSnippet.menu">
+                        <span id="name"></span>
+                        <span data-lift="MaybeMenu">
+                            <span data-lift="lift:Menu.builder?li:class=item;ul:class=menu;outer_tag=div;inner_tag=div"></span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -49,6 +69,7 @@
 
     <div class="footer">
         <p>&copy; 2013 MovieFree. &middot; <a href="#">Privacidad</a> &middot; <a href="#">Terminos</a></p>
+        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button_count"></div>
     </div>
 
 </div>

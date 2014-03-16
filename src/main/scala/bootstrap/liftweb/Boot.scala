@@ -2,7 +2,6 @@ package bootstrap.liftweb
 
 import net.liftweb._
 import util._
-import Helpers._
 
 import common._
 import http._
@@ -10,11 +9,10 @@ import js.jquery.JQueryArtifacts
 import sitemap._
 import Loc._
 
-import code.model._
 import net.liftmodules.JQueryModule
 
-import omniauth.lib._
 import omniauth.Omniauth
+import omniauth.lib._
 
 import code.model._
 
@@ -39,12 +37,12 @@ class Boot {
 
     val entries = List(
       Menu(Loc("index", "index" :: Nil, "Página de Inicio", Hidden)),
-      Menu(Loc("profile", "profile" :: Nil, "Mi Perfil")),
-      Menu(Loc("balance", "balance" :: Nil, "Mi Saldo")),
-      Menu(Loc("invitations", "invitations" :: Nil, "Mis Invitaciones")),
-      Menu(Loc("contests", ("contests" :: Nil) -> true, "Mis Concursos")),
-      Menu(Loc("movies", ("movies" :: Nil) -> true, "Las Películas", Hidden)),
-      Menu(Loc("logout", "logout" :: Nil, "Salir"))
+      Menu(Loc("profile", "profile" :: Nil, "Mi Perfil", LoginHelpers.loggedIn)),
+      Menu(Loc("balance", "balance" :: Nil, "Mi Saldo", LoginHelpers.loggedIn)),
+      Menu(Loc("invitations", "invitations" :: Nil, "Mis Invitaciones", LoginHelpers.loggedIn)),
+      Menu(Loc("myContests", "contests" :: "index" :: Nil, "Mis Concursos", LoginHelpers.loggedIn)),
+      Menu(Loc("allContests", "contests" :: "show" :: Nil, "Concursos", Hidden)),
+      Menu(Loc("movies", ("movies" :: Nil) -> true, "Las Películas", Hidden))
     ) ::: Omniauth.sitemap
 
     // set the sitemap.  Note if you don't want access control for
@@ -52,6 +50,7 @@ class Boot {
     LiftRules.setSiteMap(SiteMap(entries: _*))
 
     Omniauth.init
+//    Omniauth.initWithProviders(List(new FacebookProvider("196869340515530", "b21e2b451fa8b336da6d9cfa271cbdde")))
 
     //Init the jQuery module, see http://liftweb.net/jquery for more information.
     LiftRules.jsArtifacts = JQueryArtifacts

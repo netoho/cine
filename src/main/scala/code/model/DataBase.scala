@@ -13,15 +13,16 @@ object DataBase {
 
     DataBase.db.withSession {
       implicit session =>
+        val users = TableQuery[Users]
         val movies = TableQuery[Movies]
         val contests = TableQuery[Contests]
         val tikects = TableQuery[Tickets]
         try {
-          (movies.ddl ++ contests.ddl ++ tikects.ddl).create
+          (users.ddl ++ movies.ddl ++ contests.ddl ++ tikects.ddl).create
         } catch {
           case ex: Exception =>
-            (movies.ddl ++ contests.ddl ++ tikects.ddl).drop
-            (movies.ddl ++ contests.ddl ++ tikects.ddl).create
+            (users.ddl ++ movies.ddl ++ contests.ddl ++ tikects.ddl).drop
+            (users.ddl ++ movies.ddl ++ contests.ddl ++ tikects.ddl).create
         }
         movies ++= Seq(
           Movie(Some(1), "The Godfather", "Cuenta la vida de Vito Corleone y su hijo Michael", "http://ia.media-imdb.com/images/M/MV5BMjEyMjcyNDI4MF5BMl5BanBnXkFtZTcwMDA5Mzg3OA@@._V1_SX214_.jpg"),
