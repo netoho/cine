@@ -5,7 +5,7 @@ import code.model._
 import omniauth.{Omniauth, AuthInfo}
 import net.liftweb.http.{CurrentReq, S, RequestVar}
 import net.liftweb.common.{Loggable, Full, Empty, Box}
-import bootstrap.liftweb.RefererSessionVar
+import bootstrap.liftweb.{UserSessionVar, RefererSessionVar}
 
 
 /**
@@ -18,11 +18,11 @@ class ContestsSnippet extends Loggable {
 
   def participar = {
 
-    Omniauth.currentAuth match {
-      case Full(auth: AuthInfo) =>
-        logger.info("There is an auth so it is safe to load this page")
+    UserSessionVar.is match {
+      case Full(user: User) =>
+        logger.info("There is an user session so it is safe to load this page")
       case _ =>
-        logger.info("There is not auth so redirecting to facebook signin")
+        logger.info("There is not user session so redirecting to facebook signin")
         val uri = CurrentReq.value.request.uri
         val qs = CurrentReq.value.request.queryString openOr ""
         val completeURI = s"$uri?$qs"
@@ -49,16 +49,9 @@ class ContestsSnippet extends Loggable {
 
     val movie = MovieRequestVar.is.get
     val contest = ContestRequestVar.is.get
-    val tickets = Ticket.find(contest)
 
     "#movie-name *" #> movie.name &
       "#movie-poster [src]" #> movie.posterUrl &
-      "#movie-poster [alt]" #> movie.name &
-      ".ticket *" #> tickets.map(
-        t =>
-          if (t.status == 10)
-            "img [src]" #> "/images/interrogacion.jpg" & "img [alt]" #> "Boleto Disponible"
-          else "img [src]" #> "/images/feliz.png" & "img [alt]" #> "Boleto No Disponible"
-      )
+      "#movie-poster [alt]" #> movie.name
   }
 }

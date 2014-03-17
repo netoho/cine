@@ -46,8 +46,8 @@ object DataBase {
           Ticket(Some(2), 20, 1),
           Ticket(Some(3), 10, 1),
           Ticket(Some(4), 10, 1),
-          Ticket(Some(5), 10, 2),
-          Ticket(Some(6), 10, 2)
+          Ticket(Some(5), 10, 4),
+          Ticket(Some(6), 10, 4)
         )
 
         (for (m <- movies) yield m.name).list().foreach(println)

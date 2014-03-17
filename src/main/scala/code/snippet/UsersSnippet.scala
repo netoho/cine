@@ -6,7 +6,7 @@ import net.liftmodules.ext_api.facebook._
 import scala.xml.Text
 import net.liftweb.util.Helpers._
 import net.liftweb.http.{S, SHtml}
-import bootstrap.liftweb.{UserSessionVar, RefererSessionVar}
+import bootstrap.liftweb.{UserSessionVar, RefererSessionVar, LoginHelpers}
 import code.model.User
 
 /**
@@ -23,11 +23,12 @@ class UsersSnippet extends Loggable {
         logger.info("There is nothing in the RefererSessionVar so we can load this page")
     }
 
-    "#name" #> (UserSessionVar.is match {
-      case Full(user: User) =>
-        Text(s"${user.firstName getOrElse("")} ${user.lastName getOrElse("")}") ++ <i class="dropdown icon"></i>
-      case _ =>
-        SHtml.link("/auth/facebook/signin", () => {}, Text("Inicia Sesión"))
-    })
+    val isSession_? = LoginHelpers.checkUserSession
+    val userOp = UserSessionVar.is
+
+    "#name" #> (if(isSession_?)
+        Text(s"${userOp.get.firstName.getOrElse("")} ${userOp.get.lastName.getOrElse("")}") ++ <i class="dropdown icon"></i>
+      else
+        SHtml.link("/auth/facebook/signin", () => {}, Text("Inicia Sesión")))
   }
 }

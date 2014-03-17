@@ -22,12 +22,23 @@ object Ticket extends ((Option[Int], Int, Int) => Ticket){
 
   val db = DataBase.db
   val contests = TableQuery[Contests]
-  val tickects = TableQuery[Tickets]
+  val tickets = TableQuery[Tickets]
 
   def find(c: Contest): List[Ticket] = {
     db.withSession{
       implicit session =>
-        tickects.filter(_.contestId === c.id).list
+        tickets.filter(_.contestId === c.id).list
+    }
+  }
+
+  def save(ticket: Ticket): Ticket = {
+    db.withSession{
+      implicit session =>
+        val q = for {
+          t <- tickets if t.id === ticket.id
+        } yield t.status
+        q.update(ticket.status)
+        tickets.filter(_.id === ticket.id).first()
     }
   }
 }
