@@ -4,3 +4,5 @@ omniauth.baseurl=http://localhost:8080/
 omniauth.successurl=/
 omniauth.failureurl=/error
 omniauth.facebookpermissions=email,read_stream
+
+paypal.authtoken=EABjlBBZYjd3N-M2ALX-C2FH4UroavsgXLzYa4vY2DjTF5LWafTFGkx_8LJo
