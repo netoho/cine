@@ -15,6 +15,8 @@ import code.model.User
 class UsersSnippet extends Loggable {
   def menu = {
 
+    val isSession_? = LoginHelpers.checkUserSession
+
     RefererSessionVar.is match {
       case Full(url: String) =>
         logger.info(s"There is a value in RefererSessionVar: $url")
@@ -23,7 +25,6 @@ class UsersSnippet extends Loggable {
         logger.info("There is nothing in the RefererSessionVar so we can load this page")
     }
 
-    val isSession_? = LoginHelpers.checkUserSession
     val userOp = UserSessionVar.is
 
     "#name" #> (if(isSession_?)

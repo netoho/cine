@@ -28,6 +28,7 @@
                     <h4>Estas participando en el concurso #1 para ver gratis:</h4>
                     <h5 id="movie-name">Dragon Ball Z</h5>
                     <img id="movie-poster" class="ui medium image" src="/images/dgz.jpg" alt="Dragon Ball Z"/>
+
                     <p>Sigue estos tres sencillos pasos:</p>
 
                     <p>1.- Escoge alguno de los boletos (signo de interrogación ?).</p>
@@ -36,18 +37,21 @@
                         saldo.</p>
                 </div>
             </div>
-            <div class="column" data-lift="GetTicketActor" id="tickets-container">
-                <div class="ui segment">
-                    <h4>Agregar más saldo</h4>
-                    <ul class="ui bulleted list">
-                        <li class="item">Pay Pal</li>
-                        <li class="item">PadeMobile</li>
-                        <li class="item">Checar Saldo</li>
-                    </ul>
-                </div>
-                <div class="ui six column grid">
-                    <div class="column ticket">
-                        <img class="ui small rounded image" src="/images/interrogacion.jpg" alt="Boleto Disponible"/>
+            <div class="column">
+                <div data-lift="GetTicketActor" id="tickets-container">
+                    <div class="ui segment">
+                        <h4>Agregar más saldo</h4>
+                        <ul class="ui bulleted list">
+                            <li class="item" data-lift="TransactionSumary.paynow"></li>
+                            <li class="item">PadeMobile</li>
+                            <li class="item">Checar Saldo</li>
+                        </ul>
+                    </div>
+                    <div class="ui six column grid">
+                        <div class="column ticket">
+                            <img class="ui small rounded image" src="/images/interrogacion.jpg"
+                                 alt="Boleto Disponible"/>
+                        </div>
                     </div>
                 </div>
             </div>

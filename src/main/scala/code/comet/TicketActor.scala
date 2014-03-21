@@ -2,18 +2,19 @@ package code.comet
 
 import net.liftweb.http.{SHtml, CometListener, CometActor}
 import code.snippet.ContestRequestVar
-import code.model.Ticket
+import code.model.{Ticket, User}
 import net.liftweb.common.{Full, Loggable}
 import net.liftweb.http.js.JsCmds
 import net.liftweb.util.Helpers._
+import bootstrap.liftweb.UserSessionVar
 
 /**
  * Created by neto on 3/17/14.
  */
 class TicketActor extends CometActor with CometListener with Loggable {
 
+  val user = UserSessionVar.is.get
   val contest = ContestRequestVar.is.get
-  logger.info(contest)
   var tickets = Ticket.find(contest)
 
   override def lifespan = Full(60 seconds)
@@ -21,36 +22,30 @@ class TicketActor extends CometActor with CometListener with Loggable {
   def registerWith = TicketsServer
 
   override def lowPriority = {
-    case t: Ticket => {
+    case t: Ticket =>
       tickets = Ticket.find(contest)
-      logger.info(t)
-      //      val (src, alt) =
-      //        if (t.status == 10)
-      //          ("/images/interrogacion.jpg", "Boleto Disponible")
-      //        else
-      //          ("/images/feliz.png", "Boleto No Disponible")
-      //      val id = s"ticket.${t.contestId}.${t.id.get}"
-      //      val html =
-      //        <div class="column ticket" id={id}>
-      //          <img class="ui small rounded image" src={src} alt={alt}/>
-      //        </div>
-      //      JsCmds.SetHtml(id, html)
+      logger.info(s"The new and updated ticket: $t")
       reRender()
-    }
   }
 
   def sendingMessageActor(t: Ticket) = {
-    TicketsServer ! t
-    JsCmds.Alert(s"Enviando: $t")
+    val data = Data(t.id.get, user.id.get, t.cost)
+    logger.info(s"Enviando: $data")
+    TicketsServer ! data
+    JsCmds.Noop
   }
 
   def render = {
     ".ticket *" #> tickets.map(
       t => {
-        (if (t.status == 10)
-          "img [src]" #> "/images/interrogacion.jpg" & "img [alt]" #> "Boleto Disponible"
-        else "img [src]" #> "/images/feliz.png" & "img [alt]" #> "Boleto No Disponible"
-          ) andThen ("img [onclick]" #> SHtml.ajaxInvoke(() => sendingMessageActor(t)))
+        if (t.status == 10)
+          "img [src]" #> "/images/interrogacion.jpg" &
+            "img [alt]" #> "Boleto Disponible" &
+            "img [onclick]" #> SHtml.ajaxInvoke(() => sendingMessageActor(t))
+        else {
+          val u = User.find(t.userId.get).get
+          "img [src]" #> u.profileImage & "img [alt]" #> s"${u.firstName} compró el boleto"
+        }
       })
   }
 }

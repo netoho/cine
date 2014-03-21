@@ -15,9 +15,9 @@ object RefererSessionVar extends SessionVar[Box[String]](Empty)
 
 object LoginHelpers {
 
-  def checkUserSession = Omniauth.currentAuth match{
+  def checkUserSession = Omniauth.currentAuth match {
     case Full(auth:AuthInfo) =>
-      val user = User.registerOrUpdate(User(None, auth.firstName, auth.lastName, auth.uid, auth.token.token, s"http://graph.facebook.com/${auth.uid}/picture?type=normal"))
+      val user = User.registerOrUpdate(User(None, auth.firstName, auth.lastName, auth.uid, auth.token.token, s"http://graph.facebook.com/${auth.uid}/picture?type=normal", 0.0))
       UserSessionVar.set(Full(user))
       true
     case _ =>

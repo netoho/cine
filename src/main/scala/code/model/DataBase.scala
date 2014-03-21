@@ -42,12 +42,12 @@ object DataBase {
         )
 
         tikects ++= Seq(
-          Ticket(Some(1), 10, 1),
-          Ticket(Some(2), 20, 1),
-          Ticket(Some(3), 10, 1),
-          Ticket(Some(4), 10, 1),
-          Ticket(Some(5), 10, 4),
-          Ticket(Some(6), 10, 4)
+          Ticket(Some(1), 10, 70, 1, None),
+          Ticket(Some(2), 10, 65, 1, None),
+          Ticket(Some(3), 10, 45, 1, None),
+          Ticket(Some(4), 10, 60, 1, None),
+          Ticket(Some(5), 10, 55, 4, None),
+          Ticket(Some(6), 10, 67, 4, None)
         )
 
         (for (m <- movies) yield m.name).list().foreach(println)

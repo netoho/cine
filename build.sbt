@@ -35,3 +35,4 @@ libraryDependencies ++= {
   )
 }
 
+port in container.Configuration := 80

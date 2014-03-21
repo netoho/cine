@@ -1,0 +1,1 @@
+java -Xmx1024M -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar `dirname $0`/sbt-launch-0.12.1.jar "$@"

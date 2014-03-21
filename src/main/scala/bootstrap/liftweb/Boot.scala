@@ -10,6 +10,8 @@ import sitemap._
 import Loc._
 
 import net.liftmodules.JQueryModule
+import net.liftmodules.paypal.PaypalRules
+import code.lib.PaypalHandler
 
 import omniauth.Omniauth
 import omniauth.lib._
@@ -28,6 +30,8 @@ class Boot {
 
   def boot {
 
+    System.setProperty("run.mode", "production")
+
     DataBase.initDatabase()
 
     // where to search snippet
@@ -42,7 +46,12 @@ class Boot {
       Menu(Loc("invitations", "invitations" :: Nil, "Mis Invitaciones", LoginHelpers.loggedIn)),
       Menu(Loc("myContests", "contests" :: "index" :: Nil, "Mis Concursos", LoginHelpers.loggedIn)),
       Menu(Loc("allContests", "contests" :: "show" :: Nil, "Concursos", Hidden)),
-      Menu(Loc("movies", ("movies" :: Nil) -> true, "Las Películas", Hidden))
+      Menu(Loc("movies", ("movies" :: Nil) -> true, "Las Películas", Hidden)),
+      Menu("Transaction Complete") / "paypal" / "success"
+        >> LocGroup("public") >> Hidden,
+      Menu("Transaction Failure") / "paypal" / "failure"
+
+        >> LocGroup("public") >> Hidden
     ) ::: Omniauth.sitemap
 
     // set the sitemap.  Note if you don't want access control for
@@ -50,7 +59,9 @@ class Boot {
     LiftRules.setSiteMap(SiteMap(entries: _*))
 
     Omniauth.init
-//    Omniauth.initWithProviders(List(new FacebookProvider("196869340515530", "b21e2b451fa8b336da6d9cfa271cbdde")))
+
+    PaypalRules.init
+    PaypalHandler.dispatch.foreach(LiftRules.dispatch.append(_))
 
     //Init the jQuery module, see http://liftweb.net/jquery for more information.
     LiftRules.jsArtifacts = JQueryArtifacts
