@@ -1,8 +1,9 @@
 omniauth.facebooksecret=b21e2b451fa8b336da6d9cfa271cbdde
 omniauth.facebookkey=196869340515530
-omniauth.baseurl=http://10.195.11.177/
+// omniauth.baseurl=http://10.195.11.177/
+omniauth.baseurl=http://132.248.39.72/
 omniauth.successurl=/
 omniauth.failureurl=/error
 omniauth.facebookpermissions=email,read_stream
 
-paypal.authtoken=AJfpE0H4KABQ7cWs7PXxH0f0LzHz8ILozaJdVJAvRjZg4uxDfWOj4mttB38
+// paypal.authtoken=AJfpE0H4KABQ7cWs7PXxH0f0LzHz8ILozaJdVJAvRjZg4uxDfWOj4mttB38
