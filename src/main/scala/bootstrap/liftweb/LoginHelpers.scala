@@ -15,13 +15,13 @@ object RefererSessionVar extends SessionVar[Box[String]](Empty)
 
 object LoginHelpers {
 
-  def checkUserSession = Omniauth.currentAuth match {
-    case Full(auth:AuthInfo) =>
+  def checkUserSession = (Omniauth.currentAuth, UserSessionVar.is) match {
+    case (Full(auth), Full(user)) => true
+    case (Full(auth), Empty) =>
       val user = User.registerOrUpdate(User(None, auth.firstName, auth.lastName, auth.uid, auth.token.token, s"http://graph.facebook.com/${auth.uid}/picture?type=normal", 0.0))
       UserSessionVar.set(Full(user))
       true
-    case _ =>
-      false
+    case _ => false
   }
 
   val loggedIn = If(checkUserSession _, () => {println(S.referer); S.redirectTo("/auth/facebook/signin")})

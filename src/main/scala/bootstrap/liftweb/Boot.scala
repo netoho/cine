@@ -30,7 +30,7 @@ class Boot {
 
   def boot {
 
-    System.setProperty("run.mode", "production")
+//    System.setProperty("run.mode", "production")
 
     DataBase.initDatabase()
 
